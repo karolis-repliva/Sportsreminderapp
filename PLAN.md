@@ -12,10 +12,24 @@ stop and find a free alternative first.
 |------|------|-------|
 | Node.js, Git, VS Code | Free | |
 | Expo account and EAS cloud builds | Free plan | Limited builds per month, which is plenty for one person. Free builds can wait in a queue. |
-| API-Sports | Free plan | 100 requests/day. **Must confirm** that the free plan covers the *current* season; it has limited seasons in the past. Free fallbacks: football-data.org for football, TheSportsDB for basketball. |
+| Fixture data | Free, no API key | See "Data sources" below. |
 | Running on my phone | Free | Through **Expo Go** from the Play Store (see "Phone constraint" below). |
 | Google Play publishing | **Not free** | One-time developer fee. Only needed for a later public release, and that would be a separate decision. |
 | Backend (later) | Free tier | For example Cloudflare Workers' free tier, when that time comes. |
+
+## Data sources (decided)
+
+API-Sports was **rejected**: tested on 2026-10-14, the free plan returns
+"Free plans do not have access to this season, try from 2022 to 2024".
+
+| Covers | Source | Notes |
+|--------|--------|-------|
+| EuroLeague | Official EuroLeague feed `api-live.euroleague.net` | Full season, no key. Public but undocumented. |
+| NBA, Champions League, top football leagues | ESPN public feed `site.api.espn.com` | Full schedules, no key. Unofficial. The app **ignores scores**. |
+| LKL | TheSportsDB free key | Only the **next** game per team, so manual add covers the gaps. |
+
+Each source sits behind one small "provider" file in the code, so a source can be swapped later.
+Before any public release, check the terms or switch to a licensed source.
 
 ## Phone constraint (decided)
 
@@ -35,12 +49,12 @@ Play Store apps can be, and **Expo Go installed fine**. So:
 |---|-------|-------------------------|
 | 0 | **Setup** | Tools installed on Windows, accounts created, this project on your PC. |
 | 1 | **Hello phone** | An empty Expo app running on your phone. |
-| 2 | **Tiny real version** | A list of upcoming Žalgiris games from API-Sports, plus one reminder that fires on your phone (in Expo Go). |
+| 2 | **Tiny real version** | A list of upcoming Žalgiris games (EuroLeague feed), plus one reminder that fires on your phone (in Expo Go). |
 | 3 | **Following** | Follow competitions, teams and single games. Everything is stored on the phone. |
 | 4 | **Custom reminders** | Several reminder times per followed item. Single games can override them. |
 | 5 | **Where to watch** | Add or edit the TV channel or stream for a game, and see it in the notification. |
 | 6 | **Time rules** | Times shown in Europe/Vilnius, an "only if it starts before HH:MM" rule, and a "replay next morning" option. |
-| 7 | **Refresh on open** | Opening the app (if the last refresh was over a few hours ago) re-fetches fixtures, reschedules moved games and keeps reminders topped up about 14 days ahead, within the 100 requests/day limit. |
+| 7 | **Refresh on open** | Opening the app (if the last refresh was over a few hours ago) re-fetches fixtures, reschedules moved games and keeps reminders topped up about 14 days ahead. |
 | 8 | **Android polish** | Help with permissions (notifications, exact alarms, battery) and an in-app check screen. |
 | later | Smart triggers, sharing, backend | The design leaves room for these, but they aren't built in version 1. |
 
@@ -50,11 +64,11 @@ Play Store apps can be, and **Expo Go installed fine**. So:
 2. Git for Windows
 3. VS Code
 4. An Expo account (expo.dev), which also covers EAS cloud builds
-5. An API-Sports account (dashboard.api-football.com)
+5. ~~API-Sports account~~ (rejected, see Data sources)
 6. On the phone: the Expo Go app from the Play Store (installed ✅)
 
 ## Before going public (Play Store)
 
-- Move the API-Sports key off the phone and into a small backend or proxy. A key inside an app can be extracted.
-- Check that the API-Sports plan or license allows a public app.
+- Check that the data sources allow use in a public app, or move to a licensed source behind a small backend.
+- Any API key must live on that backend, never inside the app.
 - Write a privacy policy and complete the Play Store data-safety form.
