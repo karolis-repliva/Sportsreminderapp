@@ -3,6 +3,20 @@
 A spoiler-free Android app that reminds you to **watch** games and tells you where to watch them.
 No scores, no goal alerts, no news.
 
+## Ground rule: everything must be free
+
+Every tool, service and account in this project must cost nothing. If a step would cost money,
+stop and find a free alternative first.
+
+| Item | Cost | Notes |
+|------|------|-------|
+| Node.js, Git, VS Code | Free | |
+| Expo account and EAS cloud builds | Free plan | Limited builds per month, which is plenty for one person. Free builds can wait in a queue. |
+| API-Sports | Free plan | 100 requests/day. **Must confirm** that the free plan covers the *current* season; it has limited seasons in the past. Free fallbacks: football-data.org for football, TheSportsDB for basketball. |
+| Installing on my own phone | Free | The APK file from EAS is installed directly, with no Play Store involved. |
+| Google Play publishing | **Not free** | One-time developer fee. Only needed for a later public release, and that would be a separate decision. |
+| Backend (later) | Free tier | For example Cloudflare Workers' free tier, when that time comes. |
+
 ## Phases
 
 | # | Phase | What you get at the end |
